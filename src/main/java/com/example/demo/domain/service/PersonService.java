@@ -4,7 +4,6 @@ package com.example.demo.domain.service;
 import com.example.demo.domain.dto.PersonDTO;
 import com.example.demo.domain.entity.Document;
 import com.example.demo.domain.entity.Person;
-import com.example.demo.repository.PersonDocumentRepository;
 import com.example.demo.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -18,12 +17,9 @@ import java.util.stream.Collectors;
 @Service
 public class PersonService {
     private final PersonRepository personRepository;
-    private final PersonDocumentRepository personDocumentRepository;
 
-    public PersonService(PersonRepository personRepository,
-                         PersonDocumentRepository personDocumentRepository) {
+    public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
-        this.personDocumentRepository = personDocumentRepository;
     }
 
     public Mono<PersonDTO> findById(long id) {
@@ -52,7 +48,7 @@ public class PersonService {
         Optional<Person> editPerson = personRepository.findById(personDTO.getId());
         if (editPerson.isPresent()) {
             editPerson.get().setName(personDTO.getName());
-           Person person = personRepository.save(editPerson.get());
+            Person person = personRepository.save(editPerson.get());
             if (Objects.nonNull(person)) {
                 List<String> docNames = person.getDocuments().stream().filter(Objects::nonNull).map(Document::getDocName).collect(Collectors.toList());
                 return Mono.defer(() -> Mono.just(new PersonDTO(person.getId(), person.getName(), docNames)));

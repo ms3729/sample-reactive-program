@@ -2,11 +2,8 @@ package com.example.demo;
 
 import com.example.demo.domain.entity.Document;
 import com.example.demo.domain.entity.Person;
-import com.example.demo.domain.entity.PersonDocument;
 import com.example.demo.repository.DocumentRepository;
-import com.example.demo.repository.PersonDocumentRepository;
 import com.example.demo.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -18,14 +15,11 @@ public class DataInitializer {
 
     private final DocumentRepository documentRepository;
 
-    private final PersonDocumentRepository personDocumentRepository;
 
     public DataInitializer(PersonRepository personRepository,
-                           DocumentRepository documentRepository,
-                           PersonDocumentRepository personDocumentRepository) {
+                           DocumentRepository documentRepository) {
         this.personRepository = personRepository;
         this.documentRepository = documentRepository;
-        this.personDocumentRepository = personDocumentRepository;
     }
 
 
@@ -53,15 +47,6 @@ public class DataInitializer {
         documentRepository.saveAll(documents);
 
         Random rand = new Random();
-        /*List<PersonDocument> personDocuments = new ArrayList<>();
-        PersonDocument pd1 = new PersonDocument(ali, documents.get(rand.nextInt(documents.size())), "1401/5/1");
-        personDocuments.add(pd1);
-        PersonDocument pd2 = new PersonDocument(mohammad, documents.get(rand.nextInt(documents.size())), "1401/5/2");
-        personDocuments.add(pd2);
-        PersonDocument pd3 = new PersonDocument(hosein, documents.get(rand.nextInt(documents.size())), "1401/5/3");
-        personDocuments.add(pd3);
-
-        personDocumentRepository.saveAll(personDocuments);*/
         Set<Document> personDocumentSet;
         personDocumentSet =new HashSet<>();
         personDocumentSet.add(documents.get(rand.nextInt(documents.size())));
