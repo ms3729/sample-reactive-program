@@ -80,7 +80,6 @@
       <MavenGeneralSettings>
         <option name="mavenHome" value="Use Maven wrapper" />
         <option name="useMavenConfig" value="true" />
-        <option name="usePluginRegistry" value="true" />
       </MavenGeneralSettings>
     </option>
   </component>
